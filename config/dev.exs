@@ -5,7 +5,7 @@ config :verify, Verify.Repo,
   username: "amir5",
   password: "password5",
   hostname: "localhost",
-  database: "verify_dev",
+  database: "verify_dev2",
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
