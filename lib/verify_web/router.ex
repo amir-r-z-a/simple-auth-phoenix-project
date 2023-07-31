@@ -2,6 +2,10 @@ defmodule VerifyWeb.Router do
   use VerifyWeb, :router
   use Pow.Phoenix.Router
 
+  pipeline(:protected) do
+    plug Pow.Plug.RequireAuthenticated, error_handler: Pow.Phoenix.PlugErrorHandler
+  end
+
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -17,13 +21,11 @@ defmodule VerifyWeb.Router do
 
   scope "/" do
     pipe_through :browser
-
     pow_routes()
   end
 
   scope "/", VerifyWeb do
-    pipe_through :browser
-
+    pipe_through [:browser, :protected]
     get "/", PageController, :home
   end
 
